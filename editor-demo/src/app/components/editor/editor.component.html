@@ -1,0 +1,28 @@
+<div class="editor-container">
+    <div class="layers-container">
+      <div class="layer" *ngFor="let layer of layers; let layerIndex = index;">
+        <!-- Text Frames -->
+        <div cdkDragHandle class="text-frame" *ngFor="let textFrame of layer.textFrames; let textFrameIndex = index;" cdkDrag cdkDragBoundary=".editor-container"
+             [style.width.px]="textFrame.width" [style.height.px]="textFrame.height"
+             [style.top.px]="textFrame.top" [style.left.px]="textFrame.left" 
+             [style.z-index]="textFrame.zIndex"
+             (mousedown)="bringLayerToFront(layer, textFrame, layerIndex, textFrameIndex, 'TEXT')">
+          <!-- Text content goes here -->
+          <textarea [(ngModel)]="textFrame.content"></textarea>
+          <span class="resize-handle" (mousedown)="startResizing($event, textFrame)"></span>
+        </div>
+  
+        <!-- Image Frames -->
+        <div cdkDragHandle class="image-frame" *ngFor="let imageFrame of layer.imageFrames; let imageFrameIndex = index;" cdkDrag cdkDragBoundary=".editor-container"
+             [style.width.px]="imageFrame.width" [style.height.px]="imageFrame.height"
+             [style.top.px]="imageFrame.top" [style.left.px]="imageFrame.left"
+             [style.z-index]="imageFrame.zIndex"
+             (mousedown)="bringLayerToFront(layer, imageFrame, layerIndex, imageFrameIndex, 'IMAGE')">
+          <!-- Image content goes here -->
+          <img [src]="imageFrame.src" alt="Image">
+          <span class="resize-handle" (mousedown)="startResizing($event, imageFrame)"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
